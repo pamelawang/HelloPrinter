@@ -1,0 +1,24 @@
+<head>
+  <title>HelloPrinter</title>
+</head>
+
+<body>
+  <h1>HelloPrinter</h1>
+  <h4>What's your status today?</h4>
+
+  {{> printerStatus}}
+</body>
+
+<template name='printerStatus'>
+	<!--{{#each printer}}-->
+		{{printer.name}}
+		<!-- {{printer.imageURL}} -->
+		<br><p>{{printer.status}} as of <b>{{printer.timeStamp}}</b></p>
+		{{#if printer.status == 0}} if status is :( show reason 
+			<br>{{printer.reason}}
+		{{/if}}
+	<!--{{/each}}-->
+</template>
+
+<template name='updateStatusForm'>
+</template>
