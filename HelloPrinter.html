@@ -11,9 +11,10 @@
 
 <template name='printerStatus'>
 	<!--{{#each printer}}-->
-		{{showSelectedPrinter.name}}
+		<!-- {{showSelectedPrinter.name}} -->
+		<h2 class='printer'>ART LIBRARY</h2>
 		<!-- {{printer.imageURL}} -->
-		<br><p>{{printer}} as of <b>{{printer.timeStamp}}</b></p>
+		<br><p>{{currentStatus}} as of <b>{{showSelectedPrinter.timeStamp}}</b></p>
 <!--
 		{{#if printer.status == 0}} if status is :( show reason 
 			<br>{{printer.reason}}
