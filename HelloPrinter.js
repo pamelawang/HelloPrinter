@@ -3,20 +3,23 @@ PrinterCollection = new Mongo.Collection('printers');
 
 if (Meteor.isClient) {
   Template.printerStatus.helpers({
-
-  });
+      'printer': function(){
+            
+        },
+      
+  }); //end helpers
 
   Template.printerStatus.events({
-    'printer': function(){
-      //return PrinterCollection.find({createdBy: currentUserID}, {sort: {score: -1, name: 1}})
-    }
-  });
-}
+    
+  }); //end events
+    
+} //end client
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
   });
-}
+} //end server
+
 
 //KEEP AUTOPUBLISH ON FOR THIS CLASS
