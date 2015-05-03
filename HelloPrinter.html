@@ -15,10 +15,12 @@
 		
 
 		{{#each printer}}
-			<li class='printer {{selectedClass}}'>{{name}}</li>
+			<input type='button' class='printer {{selectedClass}}' value={{name}}>
+            <br>
+            <p> {{showSelectedPrinter}} as of <b>{{showSelectedPrinter.status}}</b></p>
 		{{/each}}
 		<!-- {{printer.imageURL}} -->
-		<br><p>{{currentStatus}} as of <b>{{showSelectedPrinter.timeStamp}}</b></p>
+
 <!--
 		{{#if printer.status == 0}} if status is :( show reason 
 			<br>{{printer.reason}}

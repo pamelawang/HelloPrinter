@@ -27,15 +27,19 @@ if (Meteor.isClient) {
       // },
 
       'printer': function(){
-            console.log(PrinterCollection.find().fetch().name);
-            console.log('herro');
-            return PrinterCollection.find({})
+          console.log(PrinterCollection.find().fetch().name);
+          console.log('herro');
+          return PrinterCollection.find({})
         },
-
-      'showSelectedPrinter': function() { //CURRENTLY IS UNDEFINED/NOT WORKING, CURRENT STRATEGY IS TO DEFINE CLICK FUNCTION TO GET THE INFO FOR THIS
+      'showSelectedPrinter': function() { 
+        //CURRENTLY IS UNDEFINED/NOT WORKING, CURRENT STRATEGY IS TO DEFINE CLICK FUNCTION TO GET THE INFO FOR THIS
         var selectedPrinter = Session.get('selectedPrinter'); 
-        return PrinterCollection.findOne(selectedPrinter) //returns the object
-      }, 
+        return PrinterCollection.findOne(selectedPrinter); //returns the object
+      },
+//      'currentStatus': function(printer) {
+//          var selectedPrinter = Session.get('selectedPrinter'); 
+//          return PrinterCollection.findOne(selectedPrinter).status; //returns the object
+//      },
 
       'selectedClass': function(){
         var printerId = this._id;
@@ -66,7 +70,7 @@ if (Meteor.isClient) {
     },
     
     'click .printer': function() { //CURRENTLY TESTING IF WE CAN GET THE NAME, LATER WILL TRY TO GET ID
-      updateStatus
+      alert('hi');
 
       //var printerId = this._id;
       //Session.set('selectedPrinter', printerId); //returns unique printer id
