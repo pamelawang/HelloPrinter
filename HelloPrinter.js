@@ -17,6 +17,7 @@ PrinterCollection = new Mongo.Collection('printers');
 /* to do later:
     1. color/bw
     2. automatic emailing function
+    3. mouseover pritner: "Update Me"
 */
 
 if (Meteor.isClient) {
@@ -30,34 +31,53 @@ if (Meteor.isClient) {
             console.log('herro');
             return PrinterCollection.find({})
         },
-      
+
+      'showSelectedPrinter': function() { //CURRENTLY IS UNDEFINED/NOT WORKING, CURRENT STRATEGY IS TO DEFINE CLICK FUNCTION TO GET THE INFO FOR THIS
+        var selectedPrinter = Session.get('selectedPrinter'); 
+        return PrinterCollection.findOne(selectedPrinter) //returns the object
+      }, 
+
+      'selectedClass': function(){
+        var printerId = this._id;
+        var selectedPrinter = Session.get('selectedPrinter');
+        if(printerId == selectedPrinter){
+          console.log('in if statemete of selectedClass');
+          return printerId; //makes that element of class 'selected'
+        }
+      },
+
       'updateStatus': function() {
           var newTime = new Date();
           // var newStatus = document.getElementById(''); //id of the form submission
           // var newReason = document.getElementById('');
           
-      },
-
-      'showSelectedPrinter': function() { //CURRENTLY IS UNDEFINED/NOT WORKING, CURRENT STRATEGY IS TO DEFINE CLICK FUNCTION TO GET THE INFO FOR THIS
-        var selectedPrinter = Session.get('selectedPrinter'); 
-        return PrinterCollection.findOne(selectedPrinter) //returns the object
       }
       
   }); //end helpers
 
   Template.printerStatus.events({
+    //1) click on printer (already below)
+    //2) submit form
+    //3) mouseover printer
+
     'submit form': function() {
       var printerId = this._id;
       //Session.set
     },
     
     'click .printer': function() { //CURRENTLY TESTING IF WE CAN GET THE NAME, LATER WILL TRY TO GET ID
-            //var playerId = this._id;
-            //Session.set('selectedPrinter', printerId); //returns unique printer id
-      console.log(this.value);
-      var selectedPrinter = Session.get('selectedPrinter');
+      updateStatus
+
+      //var printerId = this._id;
+      //Session.set('selectedPrinter', printerId); //returns unique printer id
+
+      // console.log(this);
+      // console.log('above should be the name');
+      // var selectedPrinter = Session.get('selectedPrinter');
+      // Session.set('selectedPlayer', playerID);
       //NAME ISN'T WORKING var selectedPrinterName = PrinterCollection.findOne(selectedPrinter).name;
-      console.log(selectedPrinterName);
+      //console.log(selectedPrinterName);
+
       // var reply = confirm('Are you sure you want to remove ' + selectedPlayerName + '?');
       // if (reply == true) {
       //   PlayersList.remove(selectedPlayer);
