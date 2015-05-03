@@ -26,6 +26,11 @@ if (Meteor.isClient) {
       //   return showSelectedPrinter.status
       // },
 
+      'openForm': function(){
+        //var node = document.createElement('form')
+        //document.getElementById('updateForm'); //????PAM IS HERE - making form in html file to know order
+      }
+
       'printer': function(){
             console.log(PrinterCollection.find().fetch().name);
             console.log('herro');
@@ -46,11 +51,12 @@ if (Meteor.isClient) {
         }
       },
 
-      'updateStatus': function() {
-          var newTime = new Date();
-          // var newStatus = document.getElementById(''); //id of the form submission
-          // var newReason = document.getElementById('');
-          
+      'updateStatus': function() { //?????WORKING on this
+        console.log('in updateStatus');
+        // var newStatus = document.getElementById(''); //id of the form submission
+        // var newReason = document.getElementById('');
+        var thisPrinter = this;
+        //var newTime = new Date();
       }
       
   }); //end helpers
@@ -66,7 +72,8 @@ if (Meteor.isClient) {
     },
     
     'click .printer': function() { //CURRENTLY TESTING IF WE CAN GET THE NAME, LATER WILL TRY TO GET ID
-      updateStatus
+      var currentPrinter = this;
+      currentPrinter.updateStatus(); //??????FIXING THIS RIGHT NOW
 
       //var printerId = this._id;
       //Session.set('selectedPrinter', printerId); //returns unique printer id

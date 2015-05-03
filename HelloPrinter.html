@@ -13,12 +13,26 @@
 	<!--{{#each printer}}-->
 		<!-- {{showSelectedPrinter.name}} -->
 		
+		<div id='updateForm'>
+			<form>
+				<b>Update me!</b><br>
+				Status:
+				<input type='radio' name='updatingStatus' value='1'>Working<br>
+				<input type='radio' name='updatingStatus' value='0'>Out-of-Order<br>
+				<input type='checkbox' name='reason' value='no-paper'>Out of paper<br>
+				<input type='checkbox' name='reason' value='no-ink'>Out of ink<br>
+				<input type='checkbox' name='reason' value='paper-jam'>Paper jam<br>
+				<!--PAM IS HERE-->
+				<input type='checkbox' name='reason' value='other'>Out of paper<br>
+			</form>
+		</div>
 
 		{{#each printer}}
-			<li class='printer {{selectedClass}}'>{{name}}</li>
+			<p class='printer {{selectedClass}}'>{{name}}</p>
+			<p>{{currentStatus}} as of <b>{{showSelectedPrinter.timeStamp}}</b></p>
+			<b>BREAK</b>
 		{{/each}}
 		<!-- {{printer.imageURL}} -->
-		<br><p>{{currentStatus}} as of <b>{{showSelectedPrinter.timeStamp}}</b></p>
 <!--
 		{{#if printer.status == 0}} if status is :( show reason 
 			<br>{{printer.reason}}
