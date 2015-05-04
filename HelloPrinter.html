@@ -3,8 +3,8 @@
 </head>
 
 <body>
-  <h1>HelloPrinter</h1>
-  <h4>What's your status today?</h4>
+  <h1 class='center'>HelloPrinter</h1>
+  <h4 class='center'>What's your status today?</h4>
     {{> form}}
    
 	
@@ -35,9 +35,9 @@
 <template name='printerStatus'>
 
 		{{#each printer}}
-			<input type='button' class='printer {{selectedClass}}' value={{name}}>
+			<input type='button' class='printer' value={{name}}>
             <br>
-            <p> {{showPrinterStatus}} as of <b>{{showPrinterTime}}</b></p>
+            <p class='status'> {{showPrinterStatus}} as of <b>{{showPrinterTime}}</b></p>
 		{{/each}}
 
 </template>

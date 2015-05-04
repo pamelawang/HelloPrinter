@@ -1,1 +1,13 @@
 /* CSS declarations go here */
+.printer {
+    width: 200px;
+    height: 200px;   
+    float: left;
+    top: 300px;
+    margin: 20px;
+}
+
+.status {
+    position: relative;
+}
+.center { text-align: center; }
