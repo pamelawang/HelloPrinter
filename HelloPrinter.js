@@ -1,6 +1,5 @@
 PrinterCollection = new Mongo.Collection('printers');
 //collection that holds printers' information (name, imagr URL, status, time stamp, reason for current status)
-//Session.setDefault('updateFormFlag', false); //default is that the update form doesn't show
 
 /*only things client can change:
     1. date. 
@@ -21,7 +20,11 @@ PrinterCollection = new Mongo.Collection('printers');
 */
 
 if (Meteor.isClient) {
+  Session.setDefault('printerNotWorking', false); //default is that the update form doesn't show
+
+  /**************************** printerStatus ****************************/
   Template.printerStatus.helpers({
+
       // 'currentStatus': function() { //trying to do something like numPLayers in leaderboard, where this returns a value and not the whole object
       //   return showSelectedPrinter.status
       // },
@@ -32,17 +35,9 @@ if (Meteor.isClient) {
       },
 
       'printer': function(){
-        console.log(PrinterCollection.find().fetch().name);
-        console.log('herro');
+        //console.log(PrinterCollection.find().fetch().name);
+        //console.log('in printer function helper');
         return PrinterCollection.find({})
-      },
-
-      'printerIsOutOfOrder': function(){
-        console.log('in helper function out of order');
-        var printerOutOfOrder = document.getElementById('out-of-order').checked;
-        if (printerOutOfOrder == true) {
-          console.log('IT IS OUT OF ORDER');
-        }
       },
 
       'selectedClass': function(){
@@ -100,29 +95,35 @@ if (Meteor.isClient) {
       // } else {
       //   alert(selectedPlayerName + ' was not removed.');
       // }
-    },
+    } //end events
+  }); //end printerStatus
 
-    // // OSAJFIJASLFJLAKSDJFLKSAJFLKJSAFKJSLFKJSLF INCORRECT FOR METEOR
+  /**************************** body ****************************/
+  Template.body.helpers({
+    'printerNotWorking': function(){
+      console.log('in printerNotWorking')
+      var a = Session.get('printerNotWorking');
+      console.log(a);
+    }
+  }); //end helpers
 
-    // 'click .otherSelected': function(){
-    //   document.getElementById('insertTextfield').innerhtml = '<input type=\'text\' name=\'reason\' value=\'otherDetails\' placeholder=\'Why?\'>';
-    // },
-
-    // 'click .selectedStatus': function(){ //shows reason if printer is out-of-order
-    //   var reasonArray = ['Out of paper', 'Out of ink', 'Paper jam'];
-    //   var reasonArrayIds = ['no-paper', 'no-ink', 'paper-jam'];
-
-    //   if (this.value == 0) { //if the status is :(
-    //     for (var i = 0; i < reasonArray.length; i++){
-    //       document.getElementById('formReasons').innerhtml = '<input type=\'radio\' name=\'reason\' value=\'' + reasonArrayIds[i] + '>' + reasonArray[i] + '<br>';
-    //     }
-    //     document.getElementById('formReasons').innerhtml = '<input type=\'radio\' name=\'reason\' value=\'other\' class=\'otherSelected\'>Other<div id=\'insertTextfield\'></div><br>';
-    //     document.getElementById('formReasons').innerhtml = '<input type=\'radio\' name=\'reason\' value=\'unknown\'>I don\'t know<br>';
-    //   }
-    // }
+  Template.body.events({
+    'click #printerForm': function(event){
+      console.log('in printerForm', event.target.value);
+     /* var printerOutOfOrder = document.getElementById('out-of-order').checked;
+      if (printerOutOfOrder == true) {
+        console.log('IT IS OUT OF ORDER');
+      }*/
+      if (event.target.value == 'not-working') {
+        console.log('got through event.target.value 1');
+        Session.set('printerNotWorking', true);
+      } else {
+        console.log('got through event.target.value 2');
+        Session.set('printerNotWorking', false);
+      }
+    }
   }); //end events
-    
-} //end client
+} //end body
 
 if (Meteor.isServer) {
   Meteor.startup(function () {

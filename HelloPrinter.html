@@ -13,7 +13,7 @@
 	<!--{{#each printer}}-->
 		<!-- {{showSelectedPrinter.name}} -->
 
-		<div id='updateForm'> {{> updateForm}} </div>
+		<div id='updatePrinter'> {{> updatePrinter}} </div>
 
 		{{#each printer}}
 			<p class='printer {{selectedClass}}'>{{name}}</p>
@@ -29,25 +29,24 @@
 	<!--{{/each}}-->
 </template>
 
-<template name='updateForm'>
-	<form>
+<template name='updatePrinter'>
+	<form id='printerForm'>
 		<b>Update me!</b><br>
-				Status:<br>
-				<input type='radio' name='updatingStatus' value='1' class='selectedStatus'>Working<br>
-				<input type='radio' name='updatingStatus' value='0' class='selectedStatus' id='out-of-order'>Out of Order<br>
+		Status:<br>
+		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'>Working<br>
+		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'>Out of Order<br>
+	</form>
+	
+	{{#if printerNotWorking}}
+		{{> reasons}}
+	{{/if}}
 
-				<div id='formReasons'>
-					{{#if printerIsOutOfOrder}}
-						{{> updateFormOptions}}
-					{{/if}}
-				</div>
-			</form>
 </template>
 
-<template name='updateFormOptions'>
-	<input type='checkbox' name='reason' value='no-paper'>Out of paper<br>
-	<input type='checkbox' name='reason' value='no-ink'>Out of ink<br>
-	<input type='checkbox' name='reason' value='paper-jam'>Paper jam<br>
-	<input type='checkbox' name='reason' value='other' id='other'>Other: <input type='text' name='reason'><br>
-	<input type='checkbox' name='reason' value='unknown'>I don't know<br>
+<template name='reasons'>
+	<li>Out of paper</li>
+	<li>Out of ink</li>
+	<li>Paper jam</li>
+	<li>Other</li>
+	<li>I don't know</li>
 </template>
