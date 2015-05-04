@@ -5,64 +5,41 @@
 <body>
   <h1>HelloPrinter</h1>
   <h4>What's your status today?</h4>
+    {{> form}}
+   
+	
+	
+<br>
 
-   <form id='printerForm'>
-		<b>Update me!</b><br>
-		<!--{{currentPrinter}}-->
-       <!--
-		<select>  
-  			<option class='location' value="art">Art</option>
-  			<option class='location' value="clapp">Clapp</option>
-  			<option class='location' value="music">Music</option>
-  			<option class='location' value="science">Science</option>
-  			<option class='location' value="lulu">Lulu</option>
-		</select><br>  -->
-		
-       <!-- below are part of pop-up form: -->
-       Status:<br>
+ 	{{> printerStatus}}
+    
+</body>
+
+<template name='form'>
+    <form id='printerForm'>
+		<b>Update me!</b>
+       <br>
+       <b> Status: </b>
+       <br>
 		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'>Working<br>
 		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'>Out of Order<br>
        
        {{#if printerNotWorking}}
 		{{> reasons}}
-	{{/if}}
-	<input type='button' class='submitButton' value='Submit'><br>
-	</form>
-	
-	
+	   {{/if}}
+	   <input type='button' class='submitButton' value='Submit'><br>
+    </form>
     
-    
-	<!-- can't be a submit button because outside of <form>, and can't put {{printerNotWorking}} into <form> -->
-	-------------------------<br>
-
- 	{{> printerStatus}}
-</body>
+</template>
 
 <template name='printerStatus'>
-	<!--{{#each printer}}-->
-		<!-- {{showSelectedPrinter.name}} -->
 
 		{{#each printer}}
 			<input type='button' class='printer {{selectedClass}}' value={{name}}>
             <br>
-            <p> {{showSelectedPrinter.name}} as of <b>{{showSelectedPrinter.status}}</b></p>
-		<!-- {{printer.imageURL}} -->
-
-
-<!--
-			<p class='printer {{selectedClass}}'>{{name}}</p>
-			<p>{{currentStatus}} as of <b>{{showSelectedPrinter.timeStamp}}</b></p>
-			<b>BREAK</b>
--->
+            <p> {{showSelectedPrinter.name}} as of <b>{{showSelectedPrinter}}</b></p>
 		{{/each}}
-		<!-- {{printer.imageURL}} -->
 
-<!--
-		{{#if printer.status == 0}} if status is :( show reason 
-			<br>{{printer.reason}}
-		{{/if}}
--->
-	<!--{{/each}}-->
 </template>
 
 <template name='reasons'>

@@ -21,39 +21,28 @@ PrinterCollection = new Mongo.Collection('printers');
 
 if (Meteor.isClient) {
   Session.setDefault('printerNotWorking', false); //default is that the update form doesn't show
-  Session.set('selectedPrinter', );
+  Session.set('selectedPrinter');
 
   /**************************** printerStatus ****************************/
   Template.printerStatus.helpers({
-
-      // 'currentStatus': function() { //trying to do something like numPLayers in leaderboard, where this returns a value and not the whole object
-      //   return showSelectedPrinter.status
-      // },
 
       'printer': function(){
         //console.log(PrinterCollection.find().fetch().name);
         //console.log('in printer function helper');
         return PrinterCollection.find({})
       },
-      
-      //returns the 
-//      'selectedClass': function(){ 
-//            var printerId = this._id;
-//            var selectedPrinter = Session.get('selectedPrinter');
-//            if(printerId == selectedPrinter){
-//              console.log('in if statemete of selectedClass');
-//                console.log(printerId);
-//                return 'class'; 
-//            }
-//      },
 
-      'showSelectedPrinter': function() { //CURRENTLY IS UNDEFINED/NOT WORKING, CURRENT STRATEGY IS TO DEFINE CLICK FUNCTION TO GET THE INFO FOR THIS
-        var selectedPrinter = Session.get('selectedPrinter'); 
-        console.log(PrinterCollection.findOne(selectedPrinter));
-        return PrinterCollection.findOne(selectedPrinter); //returns the object
+   'showSelectedPrinter': function() { 
+       var selectedPrinter = Session.get('selectedPrinter'); 
+       var printerStatus = PrinterCollection.findOne(selectedPrinter).status;
+       if (printerStatus==1) {
+           return 'printer is now working!';
+       } else { //printer status is 0
+           return 'printer is not working :(';
+       }
+        //return PrinterCollection.findOne(selectedPrinter); //returns the object
       }, 
 
-      //PAM: make this an event
       'updateStatus': function() { //?????WORKING on this
         console.log('in updateStatus');
         // var newStatus = document.getElementById(''); //id of the form submission
@@ -71,7 +60,6 @@ if (Meteor.isClient) {
 
     'submit form': function() {
       var printerId = this._id;
-      //Session.set('updateFormFlag', false); //resetting so the form disappears
     },
     
     'click .printer': function() { //CURRENTLY TESTING IF WE CAN GET THE NAME, LATER WILL TRY TO GET ID
@@ -79,13 +67,11 @@ if (Meteor.isClient) {
         Session.set('selectedPrinter', printerId);
         var selectedPrinter = Session.get('selectedPrinter');
 
-//      var currentPrinter = this;
-//      currentPrinter.updateStatus();
     } //end events
   }); //end printerStatus
 
   /**************************** body ****************************/
-  Template.body.helpers({
+  Template.form.helpers({
     'printerNotWorking': function(){
       //console.log('in printerNotWorking')
       return Session.get('printerNotWorking')
@@ -96,10 +82,8 @@ if (Meteor.isClient) {
     }
   }); //end helpers
 
-  Template.body.events({
-    'click .location': function(){
-      Session.set(this.value)
-    },
+  Template.form.events({
+
 
     'click #printerForm': function(event){
       //console.log('in printerForm', event.target.value);
