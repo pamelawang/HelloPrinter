@@ -32,17 +32,22 @@ if (Meteor.isClient) {
         return PrinterCollection.find({})
       },
 
-   'showSelectedPrinter': function() { 
-       var selectedPrinter = Session.get('selectedPrinter'); 
-       var printerStatus = PrinterCollection.findOne(selectedPrinter).status;
-       if (printerStatus==1) {
-           return 'printer is now working!';
+   'showPrinterStatus': function() { 
+       //var selectedPrinter = Session.get('selectedPrinter'); 
+       //var printerStatus = PrinterCollection.findOne(selectedPrinter).status;
+       if (this.status==1) {
+           return 'printer working';
        } else { //printer status is 0
-           return 'printer is not working :(';
+           return 'printer died';
        }
         //return PrinterCollection.findOne(selectedPrinter); //returns the object
       }, 
-
+      'showPrinterTime': function() {
+          console.log(this);
+          return this.timeStamp
+          //var selectedPrinter = Session.get('selectedPrinter'); 
+          //return timeStamp = PrinterCollection.findOne(selectedPrinter).timeStamp;
+      }, 
       'updateStatus': function() { //?????WORKING on this
         console.log('in updateStatus');
         // var newStatus = document.getElementById(''); //id of the form submission
