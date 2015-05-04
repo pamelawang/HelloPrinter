@@ -16,16 +16,21 @@
 </body>
 
 <template name='form'>
-    <form id='printerForm'>
+    <form id='printerForm' class='center'>
 		<b>Update me!</b>
        <br>
        <b> Status: </b>
        <br>
-		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'>Working<br>
-		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'>Out of Order<br>
-       
+		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'> Working<br>
+		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'> Out of Order<br>
+       <br>
        {{#if printerNotWorking}}
-		{{> reasons}}
+        <div class='center'>
+            <div class='left'>
+                {{> reasons}}
+            </div>
+        </div>
+		
 	   {{/if}}
 	   <input type='button' class='submitButton' value='Submit'><br>
     </form>
@@ -33,18 +38,20 @@
 </template>
 
 <template name='printerStatus'>
-
-		{{#each printer}}
-			<input type='button' class='printer' value={{name}}>
-            <br>
+    <div class='container'>
+        {{#each printer}}
+            <input type='button' class='printer' value={{name}}>
+                <br>    
             <p class='status'> {{showPrinterStatus}} as of <b>{{showPrinterTime}}</b></p>
-		{{/each}}
+        {{/each}}
+    </div>
+    
 
 </template>
 
 <template name='reasons'>
     <ul class="{{selectedClass}}">
-        <li c>Out of paper</li>
+        <li>Out of paper</li>
         <li>Out of ink</li>
         <li>Paper jam</li>
         <li>Other: <input type='text' name='reason'></li>

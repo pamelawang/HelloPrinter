@@ -11,3 +11,4 @@
     position: relative;
 }
 .center { text-align: center; }
+.left { horizontal-align: center; text-align: left;}
