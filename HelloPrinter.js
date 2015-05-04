@@ -29,11 +29,6 @@ if (Meteor.isClient) {
       //   return showSelectedPrinter.status
       // },
 
-      'openForm': function(){
-        //var node = document.createElement('form')
-        //document.getElementById('updateForm'); //????PAM IS HERE - making form in html file to know order
-      },
-
       'printer': function(){
         //console.log(PrinterCollection.find().fetch().name);
         //console.log('in printer function helper');
@@ -55,6 +50,7 @@ if (Meteor.isClient) {
         return PrinterCollection.findOne(selectedPrinter) //returns the object
       }, 
 
+      //PAM: make this an event
       'updateStatus': function() { //?????WORKING on this
         console.log('in updateStatus');
         // var newStatus = document.getElementById(''); //id of the form submission
@@ -80,25 +76,7 @@ if (Meteor.isClient) {
       alert('hi');
 
       var currentPrinter = this;
-      currentPrinter.updateStatus(); //??????FIXING THIS RIGHT NOW
-
-      //var printerId = this._id;
-      //Session.set('selectedPrinter', printerId); //returns unique printer id
-
-      // console.log(this);
-      // console.log('above should be the name');
-      // var selectedPrinter = Session.get('selectedPrinter');
-      // Session.set('selectedPlayer', playerID);
-      //NAME ISN'T WORKING var selectedPrinterName = PrinterCollection.findOne(selectedPrinter).name;
-      //console.log(selectedPrinterName);
-
-      // var reply = confirm('Are you sure you want to remove ' + selectedPlayerName + '?');
-      // if (reply == true) {
-      //   PlayersList.remove(selectedPlayer);
-      //   alert(selectedPlayerName + ' was removed.');
-      // } else {
-      //   alert(selectedPlayerName + ' was not removed.');
-      // }
+      currentPrinter.updateStatus();
     } //end events
   }); //end printerStatus
 
@@ -106,23 +84,16 @@ if (Meteor.isClient) {
   Template.body.helpers({
     'printerNotWorking': function(){
       console.log('in printerNotWorking')
-      var a = Session.get('printerNotWorking');
-      console.log(a);
+      return Session.get('printerNotWorking')
     }
   }); //end helpers
 
   Template.body.events({
     'click #printerForm': function(event){
       console.log('in printerForm', event.target.value);
-     /* var printerOutOfOrder = document.getElementById('out-of-order').checked;
-      if (printerOutOfOrder == true) {
-        console.log('IT IS OUT OF ORDER');
-      }*/
       if (event.target.value == 'not-working') {
-        console.log('got through event.target.value 1');
         Session.set('printerNotWorking', true);
       } else {
-        console.log('got through event.target.value 2');
         Session.set('printerNotWorking', false);
       }
     }

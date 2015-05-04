@@ -6,14 +6,23 @@
   <h1>HelloPrinter</h1>
   <h4>What's your status today?</h4>
 
+   <form id='printerForm'>
+		<b>Update me!</b><br>
+		Status:<br>
+		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'>Working<br>
+		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'>Out of Order<br>
+	</form>
+	
+	{{#if printerNotWorking}}
+		{{> reasons}}
+	{{/if}}
+
   {{> printerStatus}}
 </body>
 
 <template name='printerStatus'>
 	<!--{{#each printer}}-->
 		<!-- {{showSelectedPrinter.name}} -->
-
-		<div id='updatePrinter'> {{> updatePrinter}} </div>
 
 		{{#each printer}}
 			<input type='button' class='printer {{selectedClass}}' value={{name}}>
@@ -38,24 +47,10 @@
 	<!--{{/each}}-->
 </template>
 
-<template name='updatePrinter'>
-	<form id='printerForm'>
-		<b>Update me!</b><br>
-		Status:<br>
-		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'>Working<br>
-		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'>Out of Order<br>
-	</form>
-	
-	{{#if printerNotWorking}}
-		{{> reasons}}
-	{{/if}}
-
-</template>
-
 <template name='reasons'>
 	<li>Out of paper</li>
 	<li>Out of ink</li>
 	<li>Paper jam</li>
-	<li>Other</li>
+	<li>Other: <input type='text' name='reason'></li>
 	<li>I don't know</li>
 </template>
