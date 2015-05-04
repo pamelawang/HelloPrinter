@@ -6,14 +6,11 @@
   <h1 class='center'>HelloPrinter</h1>
   <h4 class='center'>What's your status today?</h4>
     {{> form}}
-   
-	
-	
 <br>
-
  	{{> printerStatus}}
-    
 </body>
+
+
 
 <template name='form'>
     <form id='printerForm' class='center'>
@@ -25,12 +22,7 @@
 		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'> Out of Order<br>
        <br>
        {{#if printerNotWorking}}
-        <div class='center'>
-            <div class='left'>
-                {{> reasons}}
-            </div>
-        </div>
-		
+            <div class='left'>{{> reasons}}</div>
 	   {{/if}}
 	   <input type='button' class='submitButton' value='Submit'><br>
     </form>
@@ -45,13 +37,12 @@
             <p class='status'> {{showPrinterStatus}} as of <b>{{showPrinterTime}}</b></p>
         {{/each}}
     </div>
-    
 
 </template>
 
 <template name='reasons'>
     <ul class="{{selectedClass}}">
-        <li>Out of paper</li>
+        <li class='selectedClass'>Out of paper</li>
         <li>Out of ink</li>
         <li>Paper jam</li>
         <li>Other: <input type='text' name='reason'></li>

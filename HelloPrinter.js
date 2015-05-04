@@ -1,4 +1,5 @@
 PrinterCollection = new Mongo.Collection('printers');
+ReasonCollection = new Mongo.Collection('reasons');
 //collection that holds printers' information (name, imagr URL, status, time stamp, reason for current status)
 
 /*only things client can change:
@@ -75,29 +76,37 @@ if (Meteor.isClient) {
     } //end events
   }); //end printerStatus
 
-  /**************************** body ****************************/
+
+    
   Template.form.helpers({
     'printerNotWorking': function(){
       //console.log('in printerNotWorking')
       return Session.get('printerNotWorking')
     },
-
-    'selectedReason': function(){
-
-    }
+    'reason': function() {
+      return ReasonCollection.find({});  
+    },
+    
   }); //end helpers
 
+    
   Template.form.events({
-
-
     'click #printerForm': function(event){
-      //console.log('in printerForm', event.target.value);
-      if (event.target.value == 'not-working') {
-        Session.set('printerNotWorking', true);
-      } else {
-        Session.set('printerNotWorking', false);
-      }
-    }
+          //console.log('in printerForm', event.target.value);
+          if (event.target.value == 'not-working') { //value of radio
+            Session.set('printerNotWorking', true);
+          } else {
+            Session.set('printerNotWorking', false);
+          }
+    }, //end printerForm
+      'reason .click': function() {
+            var reasonId = this._id;
+            var selectedReason = Session.get('selectedReason');
+            if(reasonId==selectedReason) 
+            return "highlight"; //this refers to a CSS class
+      }, 
+      
+      
   }); //end events
 } //end body
 
