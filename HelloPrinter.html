@@ -8,13 +8,14 @@
 
    <form id='printerForm'>
 		<b>Update me!</b><br>
+		<!--{{currentPrinter}}-->
 		<select> <!--for later reference: selected="selected" for default -->
-  			<option value="art">Art</option>
-  			<option value="clapp">Clapp</option>
-  			<option value="music">Music</option>
-  			<option value="science">Science</option>
-  			<option value="lulu">Lulu</option>
-		</select><br>
+  			<option class='location' value="art">Art</option>
+  			<option class='location' value="clapp">Clapp</option>
+  			<option class='location' value="music">Music</option>
+  			<option class='location' value="science">Science</option>
+  			<option class='location' value="lulu">Lulu</option>
+		</select><br> <!-- show location -->
 		Status:<br>
 		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'>Working<br>
 		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'>Out of Order<br>
