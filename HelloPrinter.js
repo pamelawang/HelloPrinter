@@ -1,4 +1,5 @@
 PrinterCollection = new Mongo.Collection('printers');
+ReasonCollection = new Mongo.Collection('reasons');
 //collection that holds printers' information (name, imagr URL, status, time stamp, reason for current status)
 
 /*only things client can change:
@@ -30,6 +31,30 @@ if (Meteor.isClient) {
         //console.log(PrinterCollection.find().fetch().name);
         //console.log('in printer function helper');
         return PrinterCollection.find({})
+      },
+
+   'showPrinterStatus': function() { 
+       //var selectedPrinter = Session.get('selectedPrinter'); 
+       //var printerStatus = PrinterCollection.findOne(selectedPrinter).status;
+       if (this.status==1) {
+           return 'printer working';
+       } else { //printer status is 0
+           return 'printer died';
+       }
+        //return PrinterCollection.findOne(selectedPrinter); //returns the object
+      }, 
+      'showPrinterTime': function() {
+          console.log(this);
+          return this.timeStamp
+          //var selectedPrinter = Session.get('selectedPrinter'); 
+          //return timeStamp = PrinterCollection.findOne(selectedPrinter).timeStamp;
+      }, 
+      'updateStatus': function() { //?????WORKING on this
+        console.log('in updateStatus');
+        // var newStatus = document.getElementById(''); //id of the form submission
+        // var newReason = document.getElementById('');
+        var thisPrinter = this;
+        //var newTime = new Date();
       }
   }); //end helpers
 
@@ -40,10 +65,10 @@ if (Meteor.isClient) {
 
     'submit form': function() {
       var printerId = this._id;
-      //Session.set('updateFormFlag', false); //resetting so the form disappears
     },
     
     'click .printer': function() { //CURRENTLY TESTING IF WE CAN GET THE NAME, LATER WILL TRY TO GET ID
+<<<<<<< HEAD
       var isFormShowing = Session.get('showForm');
       console.log(isFormShowing);
 
@@ -68,6 +93,16 @@ if (Meteor.isClient) {
     'printerNotWorking': function(){
       //console.log('in printerNotWorking')
       return Session.get('printerNotWorking')
+    },
+
+    'reason': function() {
+      return ReasonCollection.find({});  
+    },
+    'selectedClass': function() {
+        var reasonId = this._id;
+        var selectedReason = Session.get('selectedReason');
+        if(reasonId==selectedReason) 
+            return "highlight"; //this refers to a CSS class
     }
   }); //end helpers
 
@@ -78,13 +113,19 @@ if (Meteor.isClient) {
     },
 
     'click #printerForm': function(event){
-      //console.log('in printerForm', event.target.value);
-      if (event.target.value == 'not-working') {
-        Session.set('printerNotWorking', true);
-      } else {
-        Session.set('printerNotWorking', false);
+          //console.log('in printerForm', event.target.value);
+          if (event.target.value == 'not-working') { //value of radio
+            Session.set('printerNotWorking', true);
+          } else {
+            Session.set('printerNotWorking', false);
+          }
+    }, //end printerForm
+
+      'reason .click': function() {
+            var reasonId = this._id;
+            Session.set('selectedReason', reasonId);
+            var selectedReason = Session.get('selectedReason');
       }
-    }
   }); //end events
 } //end body
 
@@ -95,8 +136,6 @@ if (Meteor.isServer) {
   //Meteor.publish
   //Meteor.methods
     
-    
 } //end server
-
 
 //KEEP AUTOPUBLISH ON FOR THIS CLASS

@@ -3,55 +3,47 @@
 </head>
 
 <body>
-  	<h1>HelloPrinter</h1>
-  	<h4>What's your status today?</h4>
-  	{{#if isFormDisplayed}} <!-- if isFormDisplayed is false -->
-  		{{> popup}}
+  <h1 class='center'>HelloPrinter</h1>
+  <h4 class='center'>What's your status today?</h4>
+    {{#if isFormDisplayed}} <!-- if isFormDisplayed is false -->
+  		{{> form}}
   	{{else}}
   		<!-- do nothing -->
-  	{{/if}}
-
+  	{{/if}}<br>
  	{{> printerStatus}}
 </body>
 
+<template name='form'>
+    <form id='printerForm' class='center'>
+		<b>Update me!</b>
+       <br>
+       <b> Status: </b>
+       <br>
+		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'> Working<br>
+		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'> Out of Order<br>
+       <br>
+       {{#if printerNotWorking}}
+            <div class='left'>{{> reasons}}</div>
+	   {{/if}}
+	   <input type='button' class='submitButton' value='Submit'><br>
+    </form>
+</template>
+
 <template name='printerStatus'>
-	{{#each printer}}
-		<input type='button' class='printer {{selectedClass}}' value={{name}}><br>
-        <p> {{showSelectedPrinter}} as of <b>{{showSelectedPrinter.status}}</b></p>
-        <!-- {{#if printer.status == 0}} if status is :( show reason 
-			<br>{{printer.reason}}
-		{{/if}} -->
-	{{/each}}
+    <div class='container'>
+        {{#each printer}} <!-- this isn't showing up on the browser --> 
+            <input type='button' class='printer' value={{name}}>
+                <br>    
+            <p class='status'> {{showPrinterStatus}} as of <b>{{showPrinterTime}}</b></p>
+        {{/each}}
+    </div>
 </template>
 
 <template name='reasons'>
-	<li>Out of paper</li>
-	<li>Out of ink</li>
-	<li>Paper jam</li>
-	<li>Other: <input type='text' name='reason'></li>
-	<li>I don't know</li>
+    <ul class="{{selectedClass}}">
+         {{#each reason}}
+            <li class='reason {{selectedClass}}'> {{name}} </li>
+                <br>    
+        {{/each}}
+    </ul>
 </template>
-
-<template name='popup'>
-	<form id='printerForm'>
-		<b>Update me!</b><br>
-		<!--{{currentPrinter}}-->
-		<select> <!--for later reference: selected="selected" for default -->
-  			<option class='location' value="art">Art</option>
-  			<option class='location' value="clapp">Clapp</option>
-  			<option class='location' value="music">Music</option>
-  			<option class='location' value="science">Science</option>
-  			<option class='location' value="lulu">Lulu</option>
-		</select><br> <!-- show location -->
-		Status:<br>
-		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'>Working<br>
-		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'>Out of Order<br>
-	</form>
-	
-	{{#if printerNotWorking}}
-		{{> reasons}}
-	{{/if}}
-	<input type='button' value='Submit'><br>
-	<!-- can't be a submit button because outside of <form>, and can't put {{printerNotWorking}} into <form> -->
-	-------------------------<br>
-</template> <!-- end of popup div -->
