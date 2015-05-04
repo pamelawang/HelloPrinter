@@ -16,11 +16,20 @@
 		<div id='updatePrinter'> {{> updatePrinter}} </div>
 
 		{{#each printer}}
+			<input type='button' class='printer {{selectedClass}}' value={{name}}>
+            <br>
+            <p> {{showSelectedPrinter}} as of <b>{{showSelectedPrinter.status}}</b></p>
+		<!-- {{printer.imageURL}} -->
+
+
+<!--
 			<p class='printer {{selectedClass}}'>{{name}}</p>
 			<p>{{currentStatus}} as of <b>{{showSelectedPrinter.timeStamp}}</b></p>
 			<b>BREAK</b>
+-->
 		{{/each}}
 		<!-- {{printer.imageURL}} -->
+
 <!--
 		{{#if printer.status == 0}} if status is :( show reason 
 			<br>{{printer.reason}}

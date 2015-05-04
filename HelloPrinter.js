@@ -41,12 +41,13 @@ if (Meteor.isClient) {
       },
 
       'selectedClass': function(){
-        var printerId = this._id;
-        var selectedPrinter = Session.get('selectedPrinter');
-        if(printerId == selectedPrinter){
-          console.log('in if statemete of selectedClass');
-          return printerId; //makes that element of class 'selected'
-        }
+            var printerId = this._id;
+            var selectedPrinter = Session.get('selectedPrinter');
+            if(printerId == selectedPrinter){
+              console.log('in if statemete of selectedClass');
+                console.log(printerId);
+                return printerId; 
+            }
       },
 
       'showSelectedPrinter': function() { //CURRENTLY IS UNDEFINED/NOT WORKING, CURRENT STRATEGY IS TO DEFINE CLICK FUNCTION TO GET THE INFO FOR THIS
@@ -75,6 +76,9 @@ if (Meteor.isClient) {
     },
     
     'click .printer': function() { //CURRENTLY TESTING IF WE CAN GET THE NAME, LATER WILL TRY TO GET ID
+
+      alert('hi');
+
       var currentPrinter = this;
       currentPrinter.updateStatus(); //??????FIXING THIS RIGHT NOW
 
