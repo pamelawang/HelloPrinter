@@ -8,6 +8,13 @@
 
    <form id='printerForm'>
 		<b>Update me!</b><br>
+		<select> <!--for later reference: selected="selected" for default -->
+  			<option value="art">Art</option>
+  			<option value="clapp">Clapp</option>
+  			<option value="music">Music</option>
+  			<option value="science">Science</option>
+  			<option value="lulu">Lulu</option>
+		</select><br>
 		Status:<br>
 		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'>Working<br>
 		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'>Out of Order<br>
@@ -16,8 +23,11 @@
 	{{#if printerNotWorking}}
 		{{> reasons}}
 	{{/if}}
+	<input type='button' value='Submit'><br>
+	<!-- can't be a submit button because outside of <form>, and can't put {{printerNotWorking}} into <form> -->
+	-------------------------<br>
 
-  {{> printerStatus}}
+ 	{{> printerStatus}}
 </body>
 
 <template name='printerStatus'>

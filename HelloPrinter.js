@@ -21,6 +21,7 @@ PrinterCollection = new Mongo.Collection('printers');
 
 if (Meteor.isClient) {
   Session.setDefault('printerNotWorking', false); //default is that the update form doesn't show
+  Session.set('selectedPrinter');
 
   /**************************** printerStatus ****************************/
   Template.printerStatus.helpers({
@@ -83,14 +84,22 @@ if (Meteor.isClient) {
   /**************************** body ****************************/
   Template.body.helpers({
     'printerNotWorking': function(){
-      console.log('in printerNotWorking')
+      //console.log('in printerNotWorking')
       return Session.get('printerNotWorking')
+    },
+
+    'selectedReason': function(){
+
     }
   }); //end helpers
 
   Template.body.events({
+    'click .location': function(){
+      Session.set(this.value)
+    },
+
     'click #printerForm': function(event){
-      console.log('in printerForm', event.target.value);
+      //console.log('in printerForm', event.target.value);
       if (event.target.value == 'not-working') {
         Session.set('printerNotWorking', true);
       } else {
