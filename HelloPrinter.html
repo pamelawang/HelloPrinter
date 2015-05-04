@@ -3,10 +3,37 @@
 </head>
 
 <body>
-  <h1>HelloPrinter</h1>
-  <h4>What's your status today?</h4>
+  	<h1>HelloPrinter</h1>
+  	<h4>What's your status today?</h4>
+  	{{#if isFormDisplayed}} <!-- if isFormDisplayed is false -->
+  		{{> popup}}
+  	{{else}}
+  		<!-- do nothing -->
+  	{{/if}}
 
-   <form id='printerForm'>
+ 	{{> printerStatus}}
+</body>
+
+<template name='printerStatus'>
+	{{#each printer}}
+		<input type='button' class='printer {{selectedClass}}' value={{name}}><br>
+        <p> {{showSelectedPrinter}} as of <b>{{showSelectedPrinter.status}}</b></p>
+        <!-- {{#if printer.status == 0}} if status is :( show reason 
+			<br>{{printer.reason}}
+		{{/if}} -->
+	{{/each}}
+</template>
+
+<template name='reasons'>
+	<li>Out of paper</li>
+	<li>Out of ink</li>
+	<li>Paper jam</li>
+	<li>Other: <input type='text' name='reason'></li>
+	<li>I don't know</li>
+</template>
+
+<template name='popup'>
+	<form id='printerForm'>
 		<b>Update me!</b><br>
 		<!--{{currentPrinter}}-->
 		<select> <!--for later reference: selected="selected" for default -->
@@ -27,41 +54,4 @@
 	<input type='button' value='Submit'><br>
 	<!-- can't be a submit button because outside of <form>, and can't put {{printerNotWorking}} into <form> -->
 	-------------------------<br>
-
- 	{{> printerStatus}}
-</body>
-
-<template name='printerStatus'>
-	<!--{{#each printer}}-->
-		<!-- {{showSelectedPrinter.name}} -->
-
-		{{#each printer}}
-			<input type='button' class='printer {{selectedClass}}' value={{name}}>
-            <br>
-            <p> {{showSelectedPrinter}} as of <b>{{showSelectedPrinter.status}}</b></p>
-		<!-- {{printer.imageURL}} -->
-
-
-<!--
-			<p class='printer {{selectedClass}}'>{{name}}</p>
-			<p>{{currentStatus}} as of <b>{{showSelectedPrinter.timeStamp}}</b></p>
-			<b>BREAK</b>
--->
-		{{/each}}
-		<!-- {{printer.imageURL}} -->
-
-<!--
-		{{#if printer.status == 0}} if status is :( show reason 
-			<br>{{printer.reason}}
-		{{/if}}
--->
-	<!--{{/each}}-->
-</template>
-
-<template name='reasons'>
-	<li>Out of paper</li>
-	<li>Out of ink</li>
-	<li>Paper jam</li>
-	<li>Other: <input type='text' name='reason'></li>
-	<li>I don't know</li>
-</template>
+</template> <!-- end of popup div -->

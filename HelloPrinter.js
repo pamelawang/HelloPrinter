@@ -22,44 +22,15 @@ PrinterCollection = new Mongo.Collection('printers');
 if (Meteor.isClient) {
   Session.setDefault('printerNotWorking', false); //default is that the update form doesn't show
   Session.set('selectedPrinter');
+  Session.setDefault('showForm', false);
 
   /**************************** printerStatus ****************************/
   Template.printerStatus.helpers({
-
-      // 'currentStatus': function() { //trying to do something like numPLayers in leaderboard, where this returns a value and not the whole object
-      //   return showSelectedPrinter.status
-      // },
-
       'printer': function(){
         //console.log(PrinterCollection.find().fetch().name);
         //console.log('in printer function helper');
         return PrinterCollection.find({})
-      },
-
-      'selectedClass': function(){
-            var printerId = this._id;
-            var selectedPrinter = Session.get('selectedPrinter');
-            if(printerId == selectedPrinter){
-              console.log('in if statemete of selectedClass');
-                console.log(printerId);
-                return printerId; 
-            }
-      },
-
-      'showSelectedPrinter': function() { //CURRENTLY IS UNDEFINED/NOT WORKING, CURRENT STRATEGY IS TO DEFINE CLICK FUNCTION TO GET THE INFO FOR THIS
-        var selectedPrinter = Session.get('selectedPrinter'); 
-        return PrinterCollection.findOne(selectedPrinter) //returns the object
-      }, 
-
-      //PAM: make this an event
-      'updateStatus': function() { //?????WORKING on this
-        console.log('in updateStatus');
-        // var newStatus = document.getElementById(''); //id of the form submission
-        // var newReason = document.getElementById('');
-        var thisPrinter = this;
-        //var newTime = new Date();
       }
-      
   }); //end helpers
 
   Template.printerStatus.events({
@@ -73,29 +44,37 @@ if (Meteor.isClient) {
     },
     
     'click .printer': function() { //CURRENTLY TESTING IF WE CAN GET THE NAME, LATER WILL TRY TO GET ID
+      var isFormShowing = Session.get('showForm');
+      console.log(isFormShowing);
 
-      alert('hi');
-
-      var currentPrinter = this;
-      currentPrinter.updateStatus();
+      if (isFormShowing) { //if the form isn't displayed
+        console.log('in if statement of click.[rinter');
+      } else {
+        console.log('ELSE click.printer');
+        Session.set('showForm', true); //show the form
+      }
     } //end events
   }); //end printerStatus
 
   /**************************** body ****************************/
   Template.body.helpers({
+
+    'isFormDisplayed': function(){
+        var a = Session.get('showForm');
+        console.log('session currntly is ' + a);
+        return a
+    },
+
     'printerNotWorking': function(){
       //console.log('in printerNotWorking')
       return Session.get('printerNotWorking')
-    },
-
-    'selectedReason': function(){
-
     }
   }); //end helpers
 
   Template.body.events({
     'click .location': function(){
-      Session.set(this.value)
+      var newLocation = this.value;
+      return Session.set('selectedPrinter', newLocation)
     },
 
     'click #printerForm': function(event){
