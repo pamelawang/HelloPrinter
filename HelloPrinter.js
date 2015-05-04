@@ -21,7 +21,7 @@ PrinterCollection = new Mongo.Collection('printers');
 
 if (Meteor.isClient) {
   Session.setDefault('printerNotWorking', false); //default is that the update form doesn't show
-  Session.set('selectedPrinter');
+  Session.set('selectedPrinter', );
 
   /**************************** printerStatus ****************************/
   Template.printerStatus.helpers({
@@ -35,20 +35,22 @@ if (Meteor.isClient) {
         //console.log('in printer function helper');
         return PrinterCollection.find({})
       },
-
-      'selectedClass': function(){
-            var printerId = this._id;
-            var selectedPrinter = Session.get('selectedPrinter');
-            if(printerId == selectedPrinter){
-              console.log('in if statemete of selectedClass');
-                console.log(printerId);
-                return printerId; 
-            }
-      },
+      
+      //returns the 
+//      'selectedClass': function(){ 
+//            var printerId = this._id;
+//            var selectedPrinter = Session.get('selectedPrinter');
+//            if(printerId == selectedPrinter){
+//              console.log('in if statemete of selectedClass');
+//                console.log(printerId);
+//                return 'class'; 
+//            }
+//      },
 
       'showSelectedPrinter': function() { //CURRENTLY IS UNDEFINED/NOT WORKING, CURRENT STRATEGY IS TO DEFINE CLICK FUNCTION TO GET THE INFO FOR THIS
         var selectedPrinter = Session.get('selectedPrinter'); 
-        return PrinterCollection.findOne(selectedPrinter) //returns the object
+        console.log(PrinterCollection.findOne(selectedPrinter));
+        return PrinterCollection.findOne(selectedPrinter); //returns the object
       }, 
 
       //PAM: make this an event
@@ -73,11 +75,12 @@ if (Meteor.isClient) {
     },
     
     'click .printer': function() { //CURRENTLY TESTING IF WE CAN GET THE NAME, LATER WILL TRY TO GET ID
+        var printerId = this._id;
+        Session.set('selectedPrinter', printerId);
+        var selectedPrinter = Session.get('selectedPrinter');
 
-      alert('hi');
-
-      var currentPrinter = this;
-      currentPrinter.updateStatus();
+//      var currentPrinter = this;
+//      currentPrinter.updateStatus();
     } //end events
   }); //end printerStatus
 

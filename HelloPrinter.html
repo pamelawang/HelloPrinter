@@ -9,22 +9,29 @@
    <form id='printerForm'>
 		<b>Update me!</b><br>
 		<!--{{currentPrinter}}-->
-		<select> <!--for later reference: selected="selected" for default -->
+       <!--
+		<select>  
   			<option class='location' value="art">Art</option>
   			<option class='location' value="clapp">Clapp</option>
   			<option class='location' value="music">Music</option>
   			<option class='location' value="science">Science</option>
   			<option class='location' value="lulu">Lulu</option>
-		</select><br> <!-- show location -->
-		Status:<br>
+		</select><br>  -->
+		
+       <!-- below are part of pop-up form: -->
+       Status:<br>
 		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'>Working<br>
 		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'>Out of Order<br>
-	</form>
-	
-	{{#if printerNotWorking}}
+       
+       {{#if printerNotWorking}}
 		{{> reasons}}
 	{{/if}}
-	<input type='button' value='Submit'><br>
+	<input type='button' class='submitButton' value='Submit'><br>
+	</form>
+	
+	
+    
+    
 	<!-- can't be a submit button because outside of <form>, and can't put {{printerNotWorking}} into <form> -->
 	-------------------------<br>
 
@@ -38,7 +45,7 @@
 		{{#each printer}}
 			<input type='button' class='printer {{selectedClass}}' value={{name}}>
             <br>
-            <p> {{showSelectedPrinter}} as of <b>{{showSelectedPrinter.status}}</b></p>
+            <p> {{showSelectedPrinter.name}} as of <b>{{showSelectedPrinter.status}}</b></p>
 		<!-- {{printer.imageURL}} -->
 
 
@@ -59,9 +66,11 @@
 </template>
 
 <template name='reasons'>
-	<li>Out of paper</li>
-	<li>Out of ink</li>
-	<li>Paper jam</li>
-	<li>Other: <input type='text' name='reason'></li>
-	<li>I don't know</li>
+    <ul class="{{selectedClass}}">
+        <li c>Out of paper</li>
+        <li>Out of ink</li>
+        <li>Paper jam</li>
+        <li>Other: <input type='text' name='reason'></li>
+        <li>I don't know</li>
+    </ul>
 </template>
