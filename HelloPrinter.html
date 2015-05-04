@@ -31,7 +31,7 @@
 
 <template name='printerStatus'>
     <div class='container'>
-        {{#each printer}}
+        {{#each printer}} <!-- this isn't showing up on the browser --> 
             <input type='button' class='printer' value={{name}}>
                 <br>    
             <p class='status'> {{showPrinterStatus}} as of <b>{{showPrinterTime}}</b></p>
@@ -42,10 +42,9 @@
 
 <template name='reasons'>
     <ul class="{{selectedClass}}">
-        <li class='selectedClass'>Out of paper</li>
-        <li>Out of ink</li>
-        <li>Paper jam</li>
-        <li>Other: <input type='text' name='reason'></li>
-        <li>I don't know</li>
+         {{#each reason}}
+            <li class='reason {{selectedClass}}'> {{name}} </li>
+                <br>    
+        {{/each}}
     </ul>
 </template>

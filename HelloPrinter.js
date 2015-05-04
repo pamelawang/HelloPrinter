@@ -86,7 +86,12 @@ if (Meteor.isClient) {
     'reason': function() {
       return ReasonCollection.find({});  
     },
-    
+    'selectedClass': function() {
+        var reasonId = this._id;
+        var selectedReason = Session.get('selectedReason');
+        if(reasonId==selectedReason) 
+            return "highlight"; //this refers to a CSS class
+    },
   }); //end helpers
 
     
@@ -101,9 +106,8 @@ if (Meteor.isClient) {
     }, //end printerForm
       'reason .click': function() {
             var reasonId = this._id;
+            Session.set('selectedReason', reasonId);
             var selectedReason = Session.get('selectedReason');
-            if(reasonId==selectedReason) 
-            return "highlight"; //this refers to a CSS class
       }, 
       
       
