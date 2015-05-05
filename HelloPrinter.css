@@ -4,12 +4,17 @@
     height: 200px;   
     float: left;
     top: 300px;
-    margin: 20px;
 }
 
+.printerDisplay { margin: 40px; display: inline-block;}
+
 .status {
+    font-size: 10px;
     position: relative;
+    margin-top: 180px;
+    margin-right: 200px;
 }
 .center { text-align: center; }
 .left { horizontal-align: center; text-align: left;}
 .highlight {background-color: yellow;}
+

@@ -14,16 +14,19 @@
 
 <template name='form'> <!-- ALERT BOXES NOT RECOMMENDED, POPUP BOXES CAN BE DONE WITH BOOTSTRAP OR MAKEYOUR OWN. BUT KATHERINE THINKS IT'S FINE -->
     <form id='printerForm' class='center'>
-		<b>Update me!</b>
-       <br>
-       <b> Status: </b>
-       <br>
-		<input type='radio' name='updatingStatus' value='working'> Working<br>
-		<input type='radio' name='updatingStatus' value='not-working' id='out-of-order'> Out of Order<br>
-    <br>
+        <div id='printerQs'>
+            <b>Update me!</b>
+           <br>
+           <b> Status: </b>
+           <br>
+            <input type='radio' name='updatingStatus' value='working'> Working<br>
+            <input type='radio' name='updatingStatus' value='not-working' id='out-of-order'> Out of Order<br>
+            <br>
+        </div>
 
         {{#if printerNotWorking}}
-            <div class='left'>{{> reasons}}</div>
+            <div class='reasoning'>{{> reasons}}</div>
+            <!--<div class='left'>{{> reasons}}</div>-->
         {{/if}}
 	   
 	   <input type='submit' class='submitButton' value='Submit'><br>
@@ -31,13 +34,15 @@
 </template>
 
 <template name='printerStatus'>
-    <div class='container'>
+<!--    <div class='printerDisplay'>-->
         {{#each printer}} <!-- this isn't showing up on the browser --> 
-            <input type='button' class='printer' value={{name}}>
+            <div class='printerDisplay'>
+                <input type='button' class='printer' value={{name}}>
                 <br>    
-            <p class='status'> {{showPrinterStatus}} as of <b>{{showPrinterTime}}</b></p>
+                <p class='status'> {{showPrinterStatus}} as of <b>{{showPrinterTime}}</b></p>
+            </div>
         {{/each}}
-    </div>
+<!--    </div>-->
 </template>
 
 <template name='reasons'>

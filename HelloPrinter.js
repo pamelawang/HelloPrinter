@@ -97,7 +97,7 @@ if (Meteor.isClient) {
 
   Template.form.events({
 
-    'click #printerForm': function(event){
+    'click #printerQs': function(event){
           //console.log('in printerForm', event.target.value);
           if (event.target.value == 'not-working') { //value of radio
             Session.set('printerNotWorking', true);
@@ -115,15 +115,18 @@ if (Meteor.isClient) {
   Template.reasons.helpers({
     'reason': function(){
       console.log('in reasons helper function');
-        console.log(this);
       return ReasonCollection.find({})
     },
     'selectedClass': function() {
       var reasonId = this._id;
       var selectedReason = Session.get('selectedReason');
       if(reasonId==selectedReason) 
-          console.log('in selectedClass');
-        //return "highlight"; //this refers to a CSS class
+          //console.log('in selectedClass');
+        return "highlight"; //this refers to a CSS class
+    },
+    'showSelectedReason': function() {
+        var selectedReason = Session.get('selectedReason'); //unique id
+        return ReasonCollection.findOne(selectedReason); //findOne finds the one with unique id
     }
   }); //end helpers
 
