@@ -128,6 +128,19 @@ if (Meteor.isClient) {
             var selectedReason = Session.get('selectedReason');
       }
   }); //end events
+
+
+  /**************************** reasons ****************************/
+  Template.reasons.helpers({
+    'reason': function(){
+      console.log('in reasons helper function' + this);
+      return ReasonCollection.find({})
+    }
+  }); //end helpers
+
+  Template.reasons.events({
+  
+  }); //end events
 } //end client
 
 if (Meteor.isServer) {
@@ -135,9 +148,8 @@ if (Meteor.isServer) {
     if (ReasonCollection.find({}).count() == 0){ //if empty, add options
       var allReasons = ['Out of paper', 'Out of ink', 'Paper jam', 'Other: ', 'I don\'t know' ];
       for (var i = 0; i < allReasons.length; i++){ //adding to collection
-        ReasonCollection.insert({reason: allReasons[i]});
+        ReasonCollection.insert({name: allReasons[i]});
       }
-      //PAM IS HERE add <input type=test>
     }
   });
   //Meteor.publish
