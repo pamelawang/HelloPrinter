@@ -102,10 +102,16 @@ if (Meteor.isClient) {
           if (event.target.value == 'not-working') { //value of radio
             Session.set('printerNotWorking', true);
           } else {
-            Session.set('printerNotWorking', false);
-          }
+              var 
+            Session.set('printerNotWorking', false); //printer works.
+            },    
     }, //end printerForm
-      
+    'click #in-order': function() {
+        $('#in-order').attr('checked', 'checked');
+    },
+    'click #out-of-order': function() {
+        $('#out-of-order').attr('checked', 'checked'); 
+    },
       
       
   }); //end events
