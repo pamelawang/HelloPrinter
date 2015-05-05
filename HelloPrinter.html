@@ -5,11 +5,10 @@
 <body>
   <h1 class='center'>HelloPrinter</h1>
   <h4 class='center'>What's your status today?</h4>
-    {{#if isFormDisplayed}} <!-- if isFormDisplayed is false -->
+    {{#if isFormDisplayed}} 
   		{{> form}}
-  	{{else}}
-  		<!-- do nothing -->
-  	{{/if}}<br>
+  	{{/if}}
+    <br>
  	{{> printerStatus}}
 </body>
 
@@ -19,16 +18,15 @@
        <br>
        <b> Status: </b>
        <br>
-		<input type='radio' name='updatingStatus' value='working' class='selectedStatus'> Working<br>
-		<input type='radio' name='updatingStatus' value='not-working' class='selectedStatus' id='out-of-order'>Out of Order<br>
+		<input type='radio' name='updatingStatus' value='working'> Working<br>
+		<input type='radio' name='updatingStatus' value='not-working' id='out-of-order'> Out of Order<br>
     <br>
 
-    {{#if printerNotWorking}}
-    laksjflkasjfkasjdlf
-      <div class='left'>{{> reasons}}</div>
-	  {{/if}}
+        {{#if printerNotWorking}}
+            <div class='left'>{{> reasons}}</div>
+        {{/if}}
 	   
-	   <input type='button' class='submitButton' value='Submit'><br>
+	   <input type='submit' class='submitButton' value='Submit'><br>
     </form>
 </template>
 
@@ -43,8 +41,9 @@
 </template>
 
 <template name='reasons'>
-    <ul class="{{selectedClass}}">
+    <ul>
          {{#each reason}}
+<!--            <input type='radio' class='reason {{selectedClass}}' value='{{name}}'> {{name}}-->
             <li class='reason {{selectedClass}}'> {{name}} </li>
             <br>    
         {{/each}}

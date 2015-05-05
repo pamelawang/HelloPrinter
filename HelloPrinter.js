@@ -29,28 +29,17 @@ if (Meteor.isClient) {
   /**************************** printerStatus ****************************/
   Template.printerStatus.helpers({
     'printer': function(){
-      //console.log(PrinterCollection.find().fetch().name);
-      //console.log('in printer function helper');
       return PrinterCollection.find({})
     },
 
-   'showPrinterStatus': function() { 
-      //var selectedPrinter = Session.get('selectedPrinter'); 
-      //var printerStatus = PrinterCollection.findOne(selectedPrinter).status;
-      if (this.status==1) {
-        return 'printer working';
-      } else { //printer status is 0
-        return 'printer died';
-      }
-        //return PrinterCollection.findOne(selectedPrinter); //returns the object
+   'showPrinterStatus': function() {
+       if (this.status==1) return 'printer working';
+       else return 'printer died'; //printer status is 0
       }, 
 
     'showPrinterTime': function() {
-      console.log('in showPrinterTime' + this);
-      return this.timeStamp
-      //var selectedPrinter = Session.get('selectedPrinter'); 
-      //return timeStamp = PrinterCollection.findOne(selectedPrinter).timeStamp;
-    }, 
+      return this.timeStamp;
+     }, 
 
     'updateStatus': function() { //?????WORKING on this
       console.log('in updateStatus');
@@ -68,17 +57,21 @@ if (Meteor.isClient) {
 
     'submit form': function() {
       var printerId = this._id;
+        console.log('in submit 1');
+        $('.printForm').hide();
+        console.log('in submit 2');
+        Session.set('showForm', false);
     },
     
     'click .printer': function() {
       var isFormShowing = Session.get('showForm');
       console.log(isFormShowing);
-
       if (!isFormShowing) {
         Session.set('showForm', true); //show the form
       }
-    } //end events
-  }); //end printerStatus
+    } 
+      
+  }); //end events
 
   /**************************** body ****************************/
   Template.body.helpers({
@@ -99,19 +92,10 @@ if (Meteor.isClient) {
       return ReasonCollection.find({});  
     },
 
-    'selectedClass': function() {
-      var reasonId = this._id;
-      var selectedReason = Session.get('selectedReason');
-      if(reasonId==selectedReason) 
-        return "highlight"; //this refers to a CSS class
-    }
+    
   }); //end helpers
 
   Template.form.events({
-    'click .location': function(){
-      var newLocation = this.value;
-      return Session.set('selectedPrinter', newLocation)
-    },
 
     'click #printerForm': function(event){
           //console.log('in printerForm', event.target.value);
@@ -121,27 +105,47 @@ if (Meteor.isClient) {
             Session.set('printerNotWorking', false);
           }
     }, //end printerForm
-
-      'reason .click': function() {
-            var reasonId = this._id;
-            Session.set('selectedReason', reasonId);
-            var selectedReason = Session.get('selectedReason');
-      }
+      
+      
+      
   }); //end events
 
 
   /**************************** reasons ****************************/
   Template.reasons.helpers({
     'reason': function(){
-      console.log('in reasons helper function' + this);
+      console.log('in reasons helper function');
+        console.log(this);
       return ReasonCollection.find({})
+    },
+    'selectedClass': function() {
+      var reasonId = this._id;
+      var selectedReason = Session.get('selectedReason');
+      if(reasonId==selectedReason) 
+          console.log('in selectedClass');
+        //return "highlight"; //this refers to a CSS class
     }
   }); //end helpers
 
   Template.reasons.events({
-  
+    'reason .click': function() {
+        console.log('reason clicked');
+        var reasonId = this._id;
+        Session.set('selectedReason', reasonId);
+        var selectedReason = Session.get('selectedReason');
+        
+    }
   }); //end events
-} //end client
+    
+    
+} //end client ---------------------------------
+
+
+
+
+
+
+
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
@@ -152,6 +156,7 @@ if (Meteor.isServer) {
       }
     }
   });
+    
   //Meteor.publish
   //Meteor.methods
 } //end server
