@@ -163,6 +163,12 @@ if (Meteor.isServer) {
         ReasonCollection.insert({name: allReasons[i]});
       }
     }
+      if(PrinterCollection.find({}).count()==0) {
+       var printerNames = ['art', 'clapp', 'science', 'music', 'lulu'];
+          for(var i=0; i< printerNames.length; i++) {
+              PrinterCollection.insert({name: printerNames[i], status: 0, timeStamp: new Date()});
+          }
+      }
   });
     
   //Meteor.publish
