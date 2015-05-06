@@ -1,6 +1,7 @@
 PrinterCollection = new Mongo.Collection('printers');
 //collection that holds printers' information (name, imagr URL, status, time stamp, reason for current status)
 ReasonCollection = new Mongo.Collection('reasons');
+EmailList = new Mongo.Collection('emails'); //emailing collection corresponding to specific location
 
 /*only things client can change:
     1. date. 
@@ -10,7 +11,7 @@ ReasonCollection = new Mongo.Collection('reasons');
 
 /* each printer has the following properties:
     1. name 
-    2. timeStamp (as of last update)
+    2. lastUpdated (as of last update)
     3. reason for malfunction
 */
 
@@ -38,7 +39,7 @@ if (Meteor.isClient) {
       }, 
 
     'showPrinterTime': function() {
-      return this.timeStamp;
+      return this.lastUpdated;
      }, 
 
     'updateStatus': function() { //?????WORKING on this
@@ -163,12 +164,16 @@ if (Meteor.isServer) {
         ReasonCollection.insert({name: allReasons[i]});
       }
     }
-      if(PrinterCollection.find({}).count()==0) {
-       var printerNames = ['art', 'clapp', 'science', 'music', 'lulu'];
-          for(var i=0; i< printerNames.length; i++) {
-              PrinterCollection.insert({name: printerNames[i], status: 0, timeStamp: new Date()});
-          }
+
+    if(PrinterCollection.find({}).count()==0) {
+      var printerNames = ['art', 'clapp', 'science', 'music', 'lulu'];
+      var printerBuilding = ['art', 'clapp', 'science', 'music', 'lulu']; //for now is the same, later will be different
+      var printingType = ['color', 'b&w', 'color', 'b&w', 'b&w']; //type of printing
+      var printerFloor = ['1st', '2nd', '3rd', '4th', '5th']; //floor locations
+      for(var i=  0; i < printerNames.length; i++) {
+          PrinterCollection.insert({name: printerNames[i], status: 0, lastUpdated: new Date(), type: printingType[i], building: printerBuilding[i], floor: printerFloor[i]});
       }
+    }
   });
     
   //Meteor.publish
